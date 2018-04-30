@@ -1,0 +1,9 @@
+*
+!.gitignore
+!git/
+!git/.gitconfig
+!git/.gitmodules
+!bash
+!bash/.bash_profile
+!bash/.bash_git
+
