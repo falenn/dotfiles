@@ -26,6 +26,7 @@ function docker-compose() {
 
 alias d='docker'
 alias dc='docker-compose'
+alias k='kubectl'
 
 alias search='grep -Rn --exclude-dir={log,logs,tmp} --exclude={*.log,.*} . -e '
 alias vault='sudo docker run -it --rm \
