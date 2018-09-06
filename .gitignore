@@ -6,4 +6,6 @@
 !bash
 !bash/.bash_profile
 !bash/.bash_git
+!scripts/
+!scripts/**
 
