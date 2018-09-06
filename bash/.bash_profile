@@ -74,9 +74,13 @@ alias terraform='sudo docker run --network=host --rm -it \
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+JAVA_HOME=$HOME/apps/java/current
+CLASSPATH=$JAVA_HOME/lib/rt.jar:$JAVA_HOME/lib/tools.jar
+
+PATH=$JAVA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin
 
 
 # run startup functions
 hostStatus
 export PATH
+export CLASSPATH
