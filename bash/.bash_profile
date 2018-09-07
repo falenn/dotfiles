@@ -11,6 +11,8 @@ if [ -f ~/.git-prompt.sh ]; then
 	GIT_PS1_SHOWUPSTREAM="auto"
 	GIT_PS1_SHOWDIRTYSTATE=1
 	GIT_PS1_SHOWUNTRACKEDFILES=1
+else
+	PS1='\[\033[02;32m\]\u@\H:\[\033[02;34m\]\w\$\[\033[00m\] '
 fi
 
 # Setup SSHAgent
@@ -64,7 +66,8 @@ export TERM=linux
 alias d='docker'
 alias dc='docker-compose'
 alias k='kubectl'
-
+alias l='ls'
+alias ll='ls -la'
 alias search='grep -Rn --exclude-dir={log,logs,tmp} --exclude={*.log,.*} . -e '
 alias vault='sudo docker run -it --rm \
 	-e VAULT_ADDR:VAULT_ADDR \
