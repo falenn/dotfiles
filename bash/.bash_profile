@@ -21,6 +21,13 @@ fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l | grep "The agent has no identities" && ssh-add
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+# fix term for tmux
+export TERM=linux
+
 # iterate through a list of hosts getting their status
 # the variable passed in is the NAME of the array of hosts
 function hostStatus() {
