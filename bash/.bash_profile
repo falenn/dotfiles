@@ -72,6 +72,15 @@ alias terraform='sudo docker run --network=host --rm -it \
 	--log-driver=journald \
 	hashicorp/terraform:0.11.3'
 
+# point this script at any inventory file to execute any Ansible cmd on any host
+# ex: ansible play playbooks/deploy.yml -i inventory/dev -e "some_var=some_val"
+alias ansible='sudo docker run --rm -it \
+  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
+  -v ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
+  -v $(pwd):/ansible_playbooks \
+  -v /var/log/ansible/ansible.log \
+  walokra/ansible-playbook "$@"'
+
 # User specific environment and startup programs
 
 JAVA_HOME=$HOME/apps/java/current
