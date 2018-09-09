@@ -3,6 +3,7 @@
 !git/
 !git/.gitconfig
 !git/.gitmodules
+!git/.git-prompt.sh
 !bash
 !bash/.bash_profile
 !bash/.bash_git
