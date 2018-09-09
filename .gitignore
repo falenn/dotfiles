@@ -4,6 +4,7 @@
 !git/.gitconfig
 !git/.git-prompt.sh
 !git/.gitmodules
+!git/.git-prompt.sh
 !bash
 !bash/.bash_profile
 !bash/.bash_git
