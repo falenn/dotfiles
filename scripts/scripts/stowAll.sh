@@ -10,4 +10,4 @@ stow scripts
 
 rm -rf ~/.bash*
 stow bash
-. ~/.bash_profile
+. ~/.bashrc

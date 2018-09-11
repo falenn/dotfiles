@@ -7,6 +7,7 @@
 !git/.git-prompt.sh
 !bash
 !bash/.bash_profile
+!bash/.bashrc
 !bash/.bash_git
 !scripts/
 !scripts/**

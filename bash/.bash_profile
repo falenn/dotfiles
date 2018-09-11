@@ -1,9 +1,9 @@
 # .bash_profile
 
 # Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
-fi
+#if [ -f ~/.bashrc ]; then
+#	. ~/.bashrc
+#fi
 
 if [ -f ~/.git-prompt.sh ]; then
         . ~/.git-prompt.sh
@@ -91,12 +91,22 @@ alias ansible='sudo docker run --rm -it \
   -v /var/log/ansible/ansible.log \
   walokra/ansible-playbook "$@"'
 
-# User specific environment and startup programs
+# run this from within a project directory where the pom.xml exists
+#  -v ~/.m2/settings.xml:/usr/share/maven/ref/settings-docker.xml 
+alias mvn='sudo docker run --rm -it \ 
+  -v ~/.m2:/root/.m2 \
+  -v ~/.m2/repository:/usr/share/maven/ref/repository \
+  -v $(pwd):/usr/src/mymaven \
+  -w /usr/src/mymaven \
+  maven mvn "$@"'
 
+
+# User specific environment and startup programs
 JAVA_HOME=$HOME/apps/java/current
 CLASSPATH=$JAVA_HOME/lib/rt.jar:$JAVA_HOME/lib/tools.jar
+GRADLE_HOME=$HOME/apps/gradle/current
 
-PATH=$JAVA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin
+PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin
 
 
 # run startup functions
