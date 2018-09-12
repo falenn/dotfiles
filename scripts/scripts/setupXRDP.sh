@@ -2,7 +2,7 @@
 
 sudo yum groupinstall -y "X Window System"
 sudo yum groupinstall -y "Desktop Fonts"
-sudo yum install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts
+sudo yum install -y gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts
 
 sudo yum groupinstall -y "General Purpose Desktop"
 sudo yum groupinstall -y --skip-broken "GNOME Desktop"
