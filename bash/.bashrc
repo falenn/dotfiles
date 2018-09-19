@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ /etc/bashrc ]; then
+if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-if [ ~/.bash_profile ]; then
+if [ -f ~/.bash_profile ]; then
   . ~/.bash_profile
 fi
