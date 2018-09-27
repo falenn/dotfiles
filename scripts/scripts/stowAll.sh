@@ -12,6 +12,9 @@ rm -rf ~/.bash*
 stow bash
 . ~/.bashrc
 
+rm -rf ~/.tmux
+stow tmux
+
 if [ -e /data ]; then
  echo "Data directory exists.  linking dirs"
  ln -s /data/apps ~/apps

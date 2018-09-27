@@ -58,6 +58,7 @@ function docker-compose() {
 # Fix terminal for linux
 export TERM=linux
 
+
 alias d='docker'
 alias dc='docker-compose'
 alias k='kubectl'
@@ -88,12 +89,13 @@ alias ansible='sudo docker run --rm -it \
 
 # run this from within a project directory where the pom.xml exists
 #  -v ~/.m2/settings.xml:/usr/share/maven/ref/settings-docker.xml 
-alias mvn='sudo docker run --rm -it \ 
-  -v ~/.m2:/root/.m2 \
-  -v ~/.m2/repository:/usr/share/maven/ref/repository \
-  -v $(pwd):/usr/src/mymaven \
-  -w /usr/src/mymaven \
-  maven mvn "$@"'
+# alias mvn='sudo docker run --rm -it \ 
+#  -v /data/.m2:/root/.m2 \
+#  -v /data/.m2/repository:/usr/share/maven/ref/repository \
+#  -v $(pwd):/usr/src/mymaven \
+#  -w /usr/src/mymaven \
+#  maven \
+#  mvn "$@"'
 
 alias ibVFList="ip link show | egrep ib[0-9]+:"
 alias ibPortCount="ip link show | egrep ib[0-9]+: | wc -l"
@@ -102,8 +104,9 @@ alias ibPortCount="ip link show | egrep ib[0-9]+: | wc -l"
 JAVA_HOME=$HOME/apps/java/current
 CLASSPATH=$JAVA_HOME/lib/rt.jar:$JAVA_HOME/lib/tools.jar
 GRADLE_HOME=$HOME/apps/gradle/current
-
-PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin
+MAVEN_HOME=$HOME/apps/maven/current
+IDEA_HOME=$HOME/apps/intellij/current
+PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin:$PATH
 
 
 # run startup functions
