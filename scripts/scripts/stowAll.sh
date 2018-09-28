@@ -12,7 +12,7 @@ rm -rf ~/.bash*
 stow bash
 . ~/.bashrc
 
-rm -rf ~/.tmux
+rm -rf ~/.tmux.conf
 stow tmux
 
 if [ -e /data ]; then

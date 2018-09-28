@@ -10,7 +10,7 @@
 !bash/.bashrc
 !bash/.bash_git
 !tmux
-!tmux/tmux.conf
+!tmux/.tmux.conf
 !scripts/
 !scripts/**
 
