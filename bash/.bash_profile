@@ -28,7 +28,7 @@ export TERM=linux
 # iterate through a list of hosts getting their status
 # the variable passed in is the NAME of the array of hosts
 function hostStatus() {
-  for host in c0 c1 c2 c3 gpu1
+  for host in c0 c1 c2 c3 
   do
     result=`ping -c 1 $host < /dev/null 2>&1`
     printHostStatus $? $host
@@ -97,6 +97,8 @@ alias ansible='sudo docker run --rm -it \
 #  maven \
 #  mvn "$@"'
 
+alias ibVFList="ip link show | egrep ib[0-9]+:"
+alias ibPortCount="ip link show | egrep ib[0-9]+: | wc -l"
 
 # User specific environment and startup programs
 JAVA_HOME=$HOME/apps/java/current
