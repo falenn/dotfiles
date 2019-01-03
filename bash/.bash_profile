@@ -87,6 +87,20 @@ alias ansible='sudo docker run --rm -it \
   -v /var/log/ansible/ansible.log \
   walokra/ansible-playbook "$@"'
 
+alias node='sudo docker run --rm -it \
+  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
+  -v ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
+  -v $(pwd):/app \
+  -w /app \
+  node:latest node "$@"'
+
+alias npm='sudo docker run --rm -it \
+  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
+  -v ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
+  -v $(pwd):/app \
+  -w /app \
+  node:latest npm "$@"'
+
 # run this from within a project directory where the pom.xml exists
 #  -v ~/.m2/settings.xml:/usr/share/maven/ref/settings-docker.xml 
 # alias mvn='sudo docker run --rm -it \ 
@@ -110,6 +124,6 @@ PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$PATH:$HOME/
 
 
 # run startup functions
-hostStatus
+# hostStatus
 export PATH
 export CLASSPATH
