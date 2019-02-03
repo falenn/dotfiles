@@ -47,70 +47,13 @@ function printHostStatus() {
   fi
 }
 
-function docker() {
-    sudo docker $@
-}
-
-function docker-compose() {
-    sudo docker-compose $@
-}
-
 # Fix terminal for linux
 export TERM=linux
 
 
-alias d='docker'
-alias dc='docker-compose'
-alias k='kubectl'
 alias l='ls'
 alias ll='ls -la'
 alias search='grep -Rn --exclude-dir={log,logs,tmp} --exclude={*.log,.*} . -e '
-alias vault='sudo docker run -it --rm \
-	-e VAULT_ADDR:VAULT_ADDR \
-	--entrypoint="/bin/vault" \
-	vault:0.9.3 login'
-
-alias terraform='sudo docker run --network=host --rm -it \
-	-v $(pwd):/app \
-	-v /.terraform.d/plugins/lunx_amd64/:/plugins/ \
-	-v /etc/pki/tls/certs/cacert.crt:/etc/pki/tls/certs/cacert.crt \
-	-w /app \
-	--log-driver=journald \
-	hashicorp/terraform:0.11.3'
-
-# point this script at any inventory file to execute any Ansible cmd on any host
-# ex: ansible play playbooks/deploy.yml -i inventory/dev -e "some_var=some_val"
-alias ansible='sudo docker run --rm -it \
-  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
-  -v ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
-  -v $(pwd):/ansible_playbooks \
-  -v /var/log/ansible/ansible.log \
-  walokra/ansible-playbook "$@"'
-
-alias node='sudo docker run --rm -it \
-  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
-  -v ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
-  -v $(pwd):/app \
-  -w /app \
-  node:latest node "$@"'
-
-alias npm='sudo docker run --rm -it \
-  -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
-  -v ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub \
-  -v $(pwd):/app \
-  -w /app \
-  node:latest npm "$@"'
-
-# run this from within a project directory where the pom.xml exists
-#  -v ~/.m2/settings.xml:/usr/share/maven/ref/settings-docker.xml 
-# alias mvn='sudo docker run --rm -it \ 
-#  -v /data/.m2:/root/.m2 \
-#  -v /data/.m2/repository:/usr/share/maven/ref/repository \
-#  -v $(pwd):/usr/src/mymaven \
-#  -w /usr/src/mymaven \
-#  maven \
-#  mvn "$@"'
-
 alias ibVFList="ip link show | egrep ib[0-9]+:"
 alias ibPortCount="ip link show | egrep ib[0-9]+: | wc -l"
 
@@ -127,3 +70,9 @@ PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$PATH:$HOME/
 # hostStatus
 export PATH
 export CLASSPATH
+
+# Docker inclusion
+if [ -f ~/.bash_docker ]; then
+    . ~/.bash_docker
+fi
+      
