@@ -35,7 +35,7 @@ sudo docker run -it --rm \
   -v ~/log/ansible.log:/var/log/ansible/ansible.log \
   -w="/root/ansible" \
   --net=host \
-  williamyeh/ansible:1.9-alpine3 \
+  williamyeh/ansible:alpine3 \
   $@"
 #  walokra/ansible-playbook "$@"'
 #--entrypoint="/usr/bin/ansible"
