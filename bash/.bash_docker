@@ -27,18 +27,17 @@ alias terraform='sudo docker run --network=host --rm -it \
 
 # point this script at any inventory file to execute any Ansible cmd on any host
 # ex: ansible play playbooks/deploy.yml -i inventory/dev -e "some_var=some_val"
-alias ansible="mkdir -p ~/log && \
-touch ~/log/ansible.log && \
-sudo docker run -it --rm \
+alias ansible='mkdir -p ~/log && \
+  touch ~/log/ansible.log && \
+  sudo docker run -it --rm \
   -v ~/.ssh:/root/.ssh \
+  -v ~/.kube:/root/.kube \
   -v $(pwd):/root/ansible \
   -v ~/log/ansible.log:/var/log/ansible/ansible.log \
   -w="/root/ansible" \
   --net=host \
-  --entrypoint="/usr/bin/ansible" \
-  williamyeh/ansible:1.9-alpine3 \
-  $@"
-#  walokra/ansible-playbook "$@"'
+  meadowgate/ansible-centos7:1.0 \
+  "$@"'
 
 alias node='sudo docker run --rm -it \
   -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
