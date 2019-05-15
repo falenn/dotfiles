@@ -36,8 +36,10 @@ alias ansible='mkdir -p ~/log && \
   -v ~/log/ansible.log:/var/log/ansible/ansible.log \
   -w="/root/ansible" \
   --net=host \
-  meadowgate/ansible-centos7:1.0 \
-  "$@"'
+  williamyeh/ansible:alpine3 \
+  $@"
+
+#--entrypoint="/usr/bin/ansible"
 
 alias node='sudo docker run --rm -it \
   -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
