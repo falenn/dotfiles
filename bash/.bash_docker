@@ -35,9 +35,9 @@ alias ansible='mkdir -p ~/log && \
   -v $(pwd):/root/ansible \
   -v ~/log/ansible.log:/var/log/ansible/ansible.log \
   -w="/root/ansible" \
-  --net=host \
+  --network host \
   williamyeh/ansible:alpine3 \
-  $@"
+  $@'
 
 #--entrypoint="/usr/bin/ansible"
 
