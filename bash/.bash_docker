@@ -33,6 +33,7 @@ alias ansible='mkdir -p ~/log && \
   -v ~/.ssh:/root/.ssh \
   -v ~/.kube:/root/.kube \
   -v $(pwd):/root/ansible \
+  -v $(pwd)/ansible.cfg:/etc/ansible/ansible.cfg \
   -v ~/log/ansible.log:/var/log/ansible/ansible.log \
   -w="/root/ansible" \
   --network host \
@@ -55,3 +56,4 @@ alias npm='sudo docker run --rm -it \
   -w /app \
   node:latest npm "$@"'
 
+alias k9s='k9s --kubeconfig ~/.kube/config'
