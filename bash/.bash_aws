@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+alias aws-ec2-list='aws ec2 describe-instances \
+	--filter 'Name=tag:Name,Value=api' 'Name=instance-state-name,Values=running' | \
+	jq -r '.Reservations[].Instances[] | [.InstanceId, .PrivateIpAddress, .Tags[].Value] | @csv'
