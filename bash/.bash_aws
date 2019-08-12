@@ -12,6 +12,25 @@ function ec2ListByTagName() {
 
 }
 
+function ec2ListByTagInventory() {
+  group="$1"
+  tag="$2"
+  echo "ansible_connection=ssh"
+  echo "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+
+  if [ -z "$group" ]; then
+    echo "arg 1 is group, arg 2 is tag search"
+  fi
+  echo "[$group]"
+  
+  if [ -z "$tag" ]; then
+    echo "arg 1 is group, arg 2 is tag search"
+  fi
+  aws ec2 describe-instances \
+    --filter "Name=tag:Name,Values=$2" | \
+    jq -r ".Reservations[].Instances[] | .PrivateIpAddress"
+}
+
 function ec2ListRunning() {
   aws ec2 describe-instances \
     --filter "Name=instance-state-name,Values=running" | \
@@ -19,6 +38,8 @@ function ec2ListRunning() {
 }
 
 
+
 alias aws-ec2-list-by-tagName="ec2ListByTagName $1"
 alias aws-ec2-list-running="ec2ListRunning"
 alias aws-ec2-list-all="ec2ListAll"
+alias aws-ec2-list-inventory-by-tag="ec2ListByTagInventory $1"
