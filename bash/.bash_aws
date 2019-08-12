@@ -1,6 +1,24 @@
 #!/bin/bash
 
+function ec2ListAll() {
+  aws ec2 describe-instances | \
+    jq -r ".Reservations[].Instances[] | [.InstanceId, .PrivateIpAddress, .Tags[].Value] | @csv"
+}
 
-alias aws-ec2-list='aws ec2 describe-instances \
-	--filter 'Name=tag:Name,Value=api' 'Name=instance-state-name,Values=running' | \
-	jq -r '.Reservations[].Instances[] | [.InstanceId, .PrivateIpAddress, .Tags[].Value] | @csv'
+function ec2ListByTagName() {
+  aws ec2 describe-instances \
+    --filter "Name=tag:Name,Values=$1" | \
+    jq -r ".Reservations[].Instances[] | [.InstanceId, .PrivateIpAddress, .Tags[].Value] | @csv"
+
+}
+
+function ec2ListRunning() {
+  aws ec2 describe-instances \
+    --filter "Name=instance-state-name,Values=running" | \
+    jq -r ".Reservations[].Instances[] | [.InstanceId, .PrivateIpAddress, .Tags[].Value] | @csv"
+}
+
+
+alias aws-ec2-list-by-tagName="ec2ListByTagName $1"
+alias aws-ec2-list-running="ec2ListRunning"
+alias aws-ec2-list-all="ec2ListAll"
