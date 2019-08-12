@@ -75,4 +75,9 @@ export CLASSPATH
 if [ -f ~/.bash_docker ]; then
     . ~/.bash_docker
 fi
+
+# AWS inclusion
+if [ -f ~/.bash_aws ]; then
+    . ~/.bash_aws
+fi
       
