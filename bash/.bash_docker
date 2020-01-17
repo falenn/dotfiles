@@ -27,17 +27,21 @@ function runAnsible() {
  
  mkdir -p ~/log
  touch ~/log/ansible.log
+ mkdir -p ~/.kube
+ touch ~/.kube/config
  sudo docker run -it --name $name \
    -v ~/.ssh:/root/.ssh \
-   -v ~/.kube:/root/.kube \
+   -v ~/.kube/config:/root/.kube/config \
+   -v /etc/ssh/ssh_config:/etc/ssh/ssh_config \
    -v $(pwd):/root/ansible \
    -v $(pwd)/ansible.cfg:/etc/ansible/ansible.cfg \
    -v ~/log/ansible.log:/var/log/ansible/ansible.log \
    -w=/root/ansible \
    --network host \
-   org.pm/debian-ansible:1.0 \
+   narigacdo/debian-ansible:2.8 \
    $@
 }
+#org.pm/debian-ansible:1.0 \
 
 alias d='docker'
 alias dc='docker-compose'
