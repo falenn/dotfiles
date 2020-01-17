@@ -21,7 +21,7 @@ cat << 'EOF' | sudo tee /etc/docker/daemon.json
     "max-size":"10m",
     "max-file": "2"
   },
-  "dns": ["10.110.69.207"]
+  "dns": ["8.8.8.8"]
 }
 EOF
 
