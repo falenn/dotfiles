@@ -10,6 +10,7 @@ sudo yum-config-manager --disable docker-ce-test
 sudo yum install -y docker-ce
 
 # Docker config
+# overlay2 requires xfs formatted without d_type support.
 sudo mkdir -p /etc/docker
 cat << 'EOF' | sudo tee /etc/docker/daemon.json
 { 
@@ -32,6 +33,10 @@ curl -L https://raw.githubusercontent.com/docker/docker-ce/v$(docker -v | cut -d
 # docker compose completion
 curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose | sudo tee /etc/bash_completion.d/docker-compose
 
+# Disable swap
+sudo swapoff -a
+
 # start the service
 sudo systemctl start docker
+
 
