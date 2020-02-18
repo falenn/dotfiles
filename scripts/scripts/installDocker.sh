@@ -15,7 +15,7 @@ sudo mkdir -p /etc/docker
 cat << 'EOF' | sudo tee /etc/docker/daemon.json
 { 
   "storage-driver":"devicemapper",
-  "exec-opts": ["native.cgroupdriver=cgroupfs"],
+  "exec-opts": ["native.cgroupdriver=systemd"],
   "data-root": "/data/docker",
   "log-driver":"json-file",
   "log-opts":{
@@ -37,6 +37,7 @@ curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose versio
 sudo swapoff -a
 
 # start the service
+sudo systemctl enable docker
 sudo systemctl start docker
 
 
