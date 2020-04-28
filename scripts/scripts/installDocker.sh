@@ -12,6 +12,7 @@ sudo yum-config-manager --disable docker-ce-test
 sudo yum install -y docker-ce-$DOCKER_VER
 
 # Docker config
+# overlay2 requires xfs formatted without d_type support.
 sudo mkdir -p /etc/docker
 cat << 'EOF' | sudo tee /etc/docker/daemon.json
 { 
@@ -37,7 +38,11 @@ EOF
 # disable swap
 sudo swapoff -a
 
+# Disable swap
+sudo swapoff -a
+
 # start the service
 sudo systemctl enable docker
 sudo systemctl start docker
+
 

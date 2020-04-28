@@ -8,6 +8,41 @@ function docker-compose() {
     sudo docker-compose $@
 }
 
+# returns 0 if container exists, thus requiring "docker start" else 1 if "docker run..." needed
+function isContainerExists() {
+ name="$1"
+ egrep -q "$name" <<< `sudo docker ps -a` && echo "0" || echo "1"
+}
+
+#run with (1)path (2)remaining params
+function runAnsible() {
+ name="ansible"
+ echo "params passed in: $@"
+
+ if [[ `isContainerExists $name` == "0" ]]; then
+   echo "Container exists.  Removing"
+   sudo docker stop "$name"
+   sudo docker rm "$name"
+ fi   
+ 
+ mkdir -p ~/log
+ touch ~/log/ansible.log
+ mkdir -p ~/.kube
+ touch ~/.kube/config
+ sudo docker run -it --name $name \
+   -v ~/.ssh:/root/.ssh \
+   -v ~/.kube/config:/root/.kube/config \
+   -v /etc/ssh/ssh_config:/etc/ssh/ssh_config \
+   -v $(pwd):/root/ansible \
+   -v $(pwd)/ansible.cfg:/etc/ansible/ansible.cfg \
+   -v ~/log/ansible.log:/var/log/ansible/ansible.log \
+   -w=/root/ansible \
+   --network host \
+   narigacdo/debian-ansible:2.8 \
+   $@
+}
+#org.pm/debian-ansible:1.0 \
+
 alias d='docker'
 alias dc='docker-compose'
 alias k='kubectl'
@@ -27,19 +62,7 @@ alias terraform='sudo docker run --network=host --rm -it \
 
 # point this script at any inventory file to execute any Ansible cmd on any host
 # ex: ansible play playbooks/deploy.yml -i inventory/dev -e "some_var=some_val"
-alias ansible='mkdir -p ~/log && \
-  touch ~/log/ansible.log && \
-  sudo docker run -it --rm \
-  -v ~/.ssh:/root/.ssh \
-  -v ~/.kube:/root/.kube \
-  -v $(pwd):/root/ansible \
-  -v ~/log/ansible.log:/var/log/ansible/ansible.log \
-  -w="/root/ansible" \
-  --net=host \
-  williamyeh/ansible:alpine3 \
-  $@"
-
-#--entrypoint="/usr/bin/ansible"
+alias dansible='runAnsible "$@"'
 
 alias node='sudo docker run --rm -it \
   -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
@@ -55,3 +78,4 @@ alias npm='sudo docker run --rm -it \
   -w /app \
   node:latest npm "$@"'
 
+alias k9s='k9s --kubeconfig ~/.kube/config'

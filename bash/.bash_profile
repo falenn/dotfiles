@@ -53,7 +53,7 @@ export TERM=linux
 
 alias l='ls'
 alias ll='ls -la'
-alias search='grep -Rn --exclude-dir={log,logs,tmp} --exclude={*.log,.*} . -e '
+alias search='grep -Rn --exclude-dir={log,logs,tmp} --exclude={*.log,.*} . -e'
 alias ibVFList="ip link show | egrep ib[0-9]+:"
 alias ibPortCount="ip link show | egrep ib[0-9]+: | wc -l"
 
@@ -74,5 +74,10 @@ export CLASSPATH
 # Docker inclusion
 if [ -f ~/.bash_docker ]; then
     . ~/.bash_docker
+fi
+
+# AWS inclusion
+if [ -f ~/.bash_aws ]; then
+    . ~/.bash_aws
 fi
       
