@@ -1,3 +1,6 @@
 [user]
 	name = falenn
 	email = dev@imwiz.com
+[includeIf "gitdir:~/dotfiles/"]
+  path = ~/dotfiles/.gitconfig
+
