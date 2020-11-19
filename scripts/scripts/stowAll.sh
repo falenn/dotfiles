@@ -1,28 +1,37 @@
 #!/bin/bash
 
-cd ~/dotfiles
+check=`which stow`
+if [[ $? -gt 0 ]]; then
+  sudo yum install stow -y
+fi
 
-rm -rf ~/.git*
-stow git
+if [[ $? -eq 0 ]]; then 
+  cd ~/dotfiles
 
-rm -rf ~/scripts
-stow scripts
+  rm -rf ~/.git*
+  stow git
 
-rm -rf ~/.bash*
-stow bash
-. ~/.bashrc
+  rm -rf ~/scripts
+  stow scripts
 
-rm -rf ~/.tmux.conf
-stow tmux
+  rm -rf ~/.bash*
+  stow bash
+  . ~/.bashrc
 
-if [ -e /data ]; then
- echo "Data directory exists.  linking dirs"
- ln -s /data/apps ~/apps
- ln -s /data/dev  ~/dev
- ln -s /data/.gradle ~/.gradle
- ln -s /data/.m2 ~/.m2
- if [ -e ~/Downloads ]; then
-    rm -rf ~/Downloads
- fi
- ln -s /data/Downloads ~/Downloads
+  rm -rf ~/.tmux.conf
+  stow tmux
+
+  if [ -d "/data" ]; then
+   echo "Data directory exists.  linking dirs"
+   ln -s /data/apps ~/apps
+   ln -s /data/dev  ~/dev
+   ln -s /data/.gradle ~/.gradle
+   ln -s /data/.m2 ~/.m2
+   if [ -d "~/Downloads" ]; then
+     rm -rf ~/Downloads
+   fi
+   ln -s /data/Downloads ~/Downloads
+  fi
+else
+  echo "Unable to install stow."
 fi
