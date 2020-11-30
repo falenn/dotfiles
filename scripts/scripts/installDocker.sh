@@ -1,13 +1,27 @@
 #!/bin/bash
 
-DOCKER_VER=19.*
+CURRENT_DIR=$(PWD)
 
+DOCKER_VER=19.*
+SELINUX=container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm
+
+
+result=`which yum-config-manager`
+if [[ $? -gt 0 ]]; then
+  sudo yum install yum-utils -y
+fi
 sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 sudo yum-config-manager --disable docker-ce-edge
 sudo yum-config-manager --disable docker-ce-test
+
+cd /tmp
+wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/$SELINUX
+sudo yum install -y $SELINUX
+cd $CURRENT_DIR
+
 
 sudo yum install -y docker-ce-$DOCKER_VER
 

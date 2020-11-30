@@ -1,5 +1,5 @@
 #!/bin/bash
-k8s_version="1.14.10"
+k8s_version="1.19.3"
 
 sudo cat <<EOF | sudo tee -a /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -37,17 +37,21 @@ sudo systemctl enable kubelet && sudo systemctl start kubelet
 sudo kubeadm reset
 
 # initialize master and set network CIDR for CNI
-#sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 # install flannel
 #curl -LJO https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 #sudo kubectl apply -f kube-flannel.yml
 
+# install weave
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+
 #allow scheduling on the master
-#sudo kubectl taint nodes --all node-role.kubernetes.io/master-
+sudo kubectl taint nodes --all node-role.kubernetes.io/master-
 
 # setup kubectl for non-root user
-#mkdir -p $HOME/.kube
-#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#sudo chown $(id -u):$(id -g) $HOME/.kube/config
-#export KUBECONFIG=$HOME/.kube/config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export KUBECONFIG=$HOME/.kube/config

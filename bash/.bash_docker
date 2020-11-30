@@ -78,4 +78,12 @@ alias npm='sudo docker run --rm -it \
   -w /app \
   node:latest npm "$@"'
 
-alias k9s='k9s --kubeconfig ~/.kube/config'
+function k9s() {
+  docker run \
+  --rm \
+  -it \
+  -v $1:/root/.kube/config \
+  quay.io/derailed/k9s
+}
+
+alias k9s='k9s ~/.kube/config'
