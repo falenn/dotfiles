@@ -13,8 +13,11 @@ gpgcheck=1
 gpgkey=https://packages.microsoft.com/keys/microsoft.asc
 EOF
 
+
+
 # install vscode
 sudo yum install code
 
-
+# After launch
+# ctrl+P, paste this: ext install spadin.remote-x11-ssh
 
