@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEV_NAME=xvdb
+DEV_NAME=xvdf
 PART_NAME="${DEV_NAME}1"
 RESTART=n
 MOUNT_NAME=/data

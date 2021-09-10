@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEV_NAME=sdf
+DEV_NAME=xvdf
 RESTART=n
 
 # Display current block devices

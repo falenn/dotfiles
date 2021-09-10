@@ -63,13 +63,15 @@ CLASSPATH=$JAVA_HOME/lib/rt.jar:$JAVA_HOME/lib/tools.jar
 GRADLE_HOME=$HOME/apps/gradle/current
 MAVEN_HOME=$HOME/apps/maven/current
 IDEA_HOME=$HOME/apps/intellij/current
-PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin:$PATH
+PYENV_ROOT=$HOME/.pyenv
+PATH=$PYENV_ROOT/bin:$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin:$PATH
 
 
 # run startup functions
 # hostStatus
 export PATH
 export CLASSPATH
+export PYENV_ROOT
 
 # Docker inclusion
 if [ -f ~/.bash_docker ]; then
@@ -80,4 +82,7 @@ fi
 if [ -f ~/.bash_aws ]; then
     . ~/.bash_aws
 fi
-      
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
