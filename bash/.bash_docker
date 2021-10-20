@@ -56,12 +56,13 @@ function runAnsible() {
    sudo chown -R root: $(pwd)/.ssh
  fi
 
+
  docker run -it --name $name \
    -v ~/.aws/config:/root/.aws/config \
-   -v ~/.kube/config:/root/.kube/config \
-   -v /etc/ssh/ssh_config:/etc/ssh/ssh_config \
-   -v $(pwd):/root/ansible \
-   -v $(pwd)/ansible.cfg:/etc/ansible/ansible.cfg \
+   -v ~/.kube/config:/root/.kube/config:ro \
+   -v $(pwd)/.ssh:/root/.ssh:ro \
+   -v $(pwd):/root/ansible:ro \
+   -v $(pwd)/ansible.cfg:/etc/ansible/ansible.cfg:ro \
    -v ~/log/ansible.log:/var/log/ansible/ansible.log \
    -w=/root/ansible \
    --network host \
