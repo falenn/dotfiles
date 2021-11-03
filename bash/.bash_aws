@@ -69,6 +69,23 @@ function listLatestAMI() {
   echo "$temp"
 }
 
+# Start an instance(s) up by name tag
+function startEC2ByTagName() {
+  tag=$1
+  echo "starting EC2 Instance: $tag"
+  id=`ec2ListIDOnlyByTagName ${tag}`
+  aws ec2 start-instances --instance-ids ${id}
+}
+
+# stop instance by name tag
+function stopEC2ByTagName() {
+  tag=$1
+  echo "Stopping EC2 Instance: $tag"
+  id=`ec2ListIDOnlyByTagName ${tag}`
+  aws ec2 stop-instances --instance-ids ${id}
+}
+
+
 alias aws-ec2-ami-list-latest="listLatestAMI"
 alias aws-ec2-list-by-tagName="ec2ListByTagName $1"
 alias aws-ec2-list-running="ec2ListRunning"
