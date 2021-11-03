@@ -76,4 +76,5 @@ alias aws-ec2-list-all="ec2ListAll"
 alias aws-ec2-list-inventory-by-tag="ec2ListByTagInventory $1"
 alias aws-ec2-list-detail-by-tag="ec2ListDetailByTag $1"
 alias aws-export-creds="exportEC2"
-
+alias aws-ec2-start-by-tagName="startEC2ByTagName $1"
+alias aws-ec2-stop-by-tagName="stopEC2ByTagName $1
