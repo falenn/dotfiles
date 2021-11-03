@@ -11,6 +11,17 @@ function ec2ListByTagName() {
     jq -r ".Reservations[].Instances[] | [.InstanceId, .PrivateIpAddress, .Tags[].Value] | @csv"
 }
 
+# List ec2 instance, returning only ID.  Good for automation use when returning
+# an exact match
+# td -d \"  trim quotes from output
+function ec2ListIDOnlyByTagName() {
+  tag=$1
+  aws ec2 describe-instances \
+    --filter "Name=tag:Name,Values=${tag}" | \
+    jq -r ".Reservations[].Instances[] | [.InstanceId] | @csv " | \
+    tr -d \"
+}
+
 function ec2ListDetailByTag() {
   aws ec2 describe-instances \
     --filter "Name=tag:Name,Values=$1"
