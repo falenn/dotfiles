@@ -109,6 +109,7 @@ function k9s() {
   docker run \
   --rm \
   -it \
+  --network host \
   -v $1:/root/.kube/config \
   quay.io/derailed/k9s
 }

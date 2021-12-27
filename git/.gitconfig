@@ -4,3 +4,5 @@
 [includeIf "gitdir:~/dotfiles/"]
   path = ~/dotfiles/.gitconfig
 
+[code]
+  excludesfile = ~/.gitignore
