@@ -57,22 +57,38 @@ alias search='grep -Rn --exclude-dir={log,logs,tmp} --exclude={*.log,.*} . -e'
 alias ibVFList="ip link show | egrep ib[0-9]+:"
 alias ibPortCount="ip link show | egrep ib[0-9]+: | wc -l"
 
+
 # User specific environment and startup programs
 JAVA_HOME=$HOME/apps/java/current
-CLASSPATH=$JAVA_HOME/lib/rt.jar:$JAVA_HOME/lib/tools.jar
-GRADLE_HOME=$HOME/apps/gradle/current
-MAVEN_HOME=$HOME/apps/maven/current
-IDEA_HOME=$HOME/apps/intellij/current
-PYENV_ROOT=$HOME/.pyenv
-PATH=$PYENV_ROOT/bin:$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$PATH:$HOME/.local/bin:$HOME/bin:$PATH
+export CLASSPATH=$JAVA_HOME/lib/rt.jar:$JAVA_HOME/lib/tools.jar
+
+export GRADLE_HOM=E$HOME/apps/gradle/current
+export MAVEN_HOME=$HOME/apps/maven/current
+export IDEA_HOME=$HOME/apps/intellij/current
+
+#python path
+export PYENV_ROOT=$HOME/.pyenv
+
+
+# PATH construction
+PATH=$PYENV_ROOT/bin:$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$HOME/.local/bin:$HOME/bin
+# Adding system paths
+PATH=$PATH:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+# exporting path
+export PATH
+
+# pyenv inclusion
+# if the command exists (on the path) then init pyenv and virtualenv.
+# redirect stdout and stderr 
+if command -v pyenv 1>/dev/null 2>&1; then
+  echo "Initializing python pyenv"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
 
 
 # run startup functions
-# hostStatus
-export PATH
-export CLASSPATH
-export PYENV_ROOT
-
 # Docker inclusion
 if [ -f ~/.bash_docker ]; then
     . ~/.bash_docker
@@ -81,8 +97,4 @@ fi
 # AWS inclusion
 if [ -f ~/.bash_aws ]; then
     . ~/.bash_aws
-fi
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
 fi
