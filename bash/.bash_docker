@@ -6,13 +6,13 @@ VAULT_VER=0.9.3
 ANSIBLE_IMG=awkspace/ansible:latest
 
 if [ ! -e UID ]; then
-  UID=`id -u`
-  export UID
+  UIDi=`id -u`
+  export UIDi
 fi
 
 if [ ! -e GID ]; then
-  GID=`id -g`
-  export GID
+  GIDi=`id -g`
+  export GIDi
 fi
 
 
@@ -52,6 +52,7 @@ function runAnsible() {
  # setup ssh keys - don't like this
  if [ ! -d "$(pwd)/.ssh" ]; then
    mkdir -p $(pwd)/.ssh 
+   cp ~/.ssh/known_hosts $(pwd)/.ssh
    cp ~/.ssh/id* -p $(pwd)/.ssh
    sudo chown -R root: $(pwd)/.ssh
  fi
@@ -60,7 +61,8 @@ function runAnsible() {
  docker run -it --name $name \
    -v ~/.aws/config:/root/.aws/config \
    -v ~/.kube/config:/root/.kube/config:ro \
-   -v $(pwd)/.ssh:/root/.ssh:ro \
+   -v ~/inventory.ini:/etc/ansible/hosts:ro \
+   -v $(pwd)/.ssh:/root/.ssh \
    -v $(pwd):/root/ansible:ro \
    -v $(pwd)/ansible.cfg:/etc/ansible/ansible.cfg:ro \
    -v ~/log/ansible.log:/var/log/ansible/ansible.log \
@@ -89,7 +91,7 @@ alias terraform="docker run --network=host --rm -it \
 
 # point this script at any inventory file to execute any Ansible cmd on any host
 # ex: ansible play playbooks/deploy.yml -i inventory/dev -e "some_var=some_val"
-alias dansible='runAnsible "$@"'
+alias ansible='runAnsible "$@"'
 
 alias node='docker run --rm -it \
   -v ~/.ssh/id_rsa:/root/.ssh/id_rsa \
@@ -104,6 +106,8 @@ alias npm='docker run --rm -it \
   -v $(pwd):/app \
   -w /app \
   node:latest npm "$@"'
+
+alias dnvim='docker run -it --rm -v $(pwd):/src thawk/spacevim "$@"'
 
 function k9s() {
   docker run \

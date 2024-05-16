@@ -7,7 +7,7 @@ if [ -f ~/.git-prompt.sh ]; then
 	GIT_PS1_SHOWDIRTYSTATE=1
 	GIT_PS1_SHOWUNTRACKEDFILES=1
 else
-	PS1='\[\033[02;32m\]\u@\H:\[\033[02;34m\]\w\$\[\033[00m\] '
+	PS1='\[\033[02;32m\]\u@\h:\[\033[02;34m\]\w\$\[\033[00m\] '
 fi
 
 # Setup SSHAgent
@@ -68,10 +68,12 @@ export IDEA_HOME=$HOME/apps/intellij/current
 
 #python path
 export PYENV_ROOT=$HOME/.pyenv
+export flbBookRootDir=~/dev/fluentbit/Fluentbit-with-Kubernetes
 
+FLUENTBIT_HOME=/opt/fluent-bit
 
 # PATH construction
-PATH=$PYENV_ROOT/bin:$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$HOME/.local/bin:$HOME/bin
+PATH=$FLUENTBIT_HOME/bin:$PYENV_ROOT/bin:$JAVA_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin:$IDEA_HOME/bin:$HOME/.local/bin:$HOME/bin
 # Adding system paths
 PATH=$PATH:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
 # exporting path
@@ -98,3 +100,8 @@ fi
 if [ -f ~/.bash_aws ]; then
     . ~/.bash_aws
 fi
+
+#if [ -f ~/.bash_fluent ]; then
+#    . ~/.bash_fluent
+#fi
+
