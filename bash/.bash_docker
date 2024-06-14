@@ -107,7 +107,19 @@ alias npm='docker run --rm -it \
   -w /app \
   node:latest npm "$@"'
 
-alias dnvim='docker run -it --rm -v $(pwd):/src thawk/spacevim "$@"'
+#alias dnvim='docker run -it --rm -v $(pwd):/src thawk/spacevim "$@"'
+
+function spv ()
+{
+  if [ $# -eq 1 ]
+  then
+    docker run --rm -ti -v /home/cloud_user/.SpaceVim.d/init.toml:/home/spacevim/.SpaceVim.d/init.toml -v $(pwd):/home/spacevim/workdir alastairhm/spacevim workdir/$1
+  else
+    docker run --rm -ti -v /home/cloud_user/.SpaceVim.d/init.toml:/home/spacevim/.SpaceVim.d/init.toml -v $(pwd):/home/spacevim/workdir alastairhm/spacevim
+  fi
+}
+
+alias spv="spv $@"
 
 function k9s() {
   docker run \
